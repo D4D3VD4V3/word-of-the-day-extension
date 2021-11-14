@@ -1,0 +1,1 @@
+{"id":"9fe7f817-ab63-4da0-9cde-df252ed1e013","space":13321,"runtime":"python3.9","name":"detamicro","path":"oq3p80","project":"b00m9dvw","account":"144798365827","region":"us-east-1","deps":["fastapi==0.70.0","loguru==0.5.3","deta"],"envs":null,"public":true,"log_level":"debug","cron":"12 hours"}

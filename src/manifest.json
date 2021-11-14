@@ -1,0 +1,13 @@
+{
+  "name": "Word of the Day",
+  "background": { "scripts": ["background/index.js"] },
+  "content_scripts": [
+    {
+      "js": ["content/index.js"],
+      "matches": ["https://*/*", "http://*/*"]
+    }
+  ],
+  "chrome_url_overrides" : {
+      "newtab": "popup/index.html"
+  }
+}
