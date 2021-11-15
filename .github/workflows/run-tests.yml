@@ -25,4 +25,4 @@ jobs:
     - name: Install and run tests
       run: |
         npm install
-        jest
+        yarn run jest
