@@ -90,17 +90,25 @@
 
     if (!date) {
       writeLocalStorage("date", now.getTime());
-      return;
+        let wotdobj = await getWOTD();
+        writeLocalStorage("wotd", wotdobj);
+        writeLocalStorage("date", now.getTime());
+        return wotdobj;
     }
     let old = await readLocalStorage("date");
     if (now.getTime() <= old) {
       let datum = await readLocalStorage("wotd");
-      return datum;
+      if (datum)
+        {
+        return datum;
+        }
     }
-    let wotdobj = await getWOTD();
-    writeLocalStorage("wotd", wotdobj);
-    writeLocalStorage("date", now.getTime());
-    return wotdobj;
+    else {
+        let wotdobj = await getWOTD();
+        writeLocalStorage("wotd", wotdobj);
+        writeLocalStorage("date", now.getTime());
+        return wotdobj;
+      }
   }
 
   async function getWOTD() {

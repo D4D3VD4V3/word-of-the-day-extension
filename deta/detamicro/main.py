@@ -48,4 +48,5 @@ async def root():
 
 @app.lib.cron()
 def cron_task(event):
+    drive.delete("data.txt")
     get_data()
