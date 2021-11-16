@@ -1,13 +1,26 @@
-<script>
-  import { createEventDispatcher } from "svelte";
+<style>
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 
-  export let wordlistArr;
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+</style>
+
+<script>
+  import { createEventDispatcher } from 'svelte';
+
+  export let wordArr;
 
   const dispatch = createEventDispatcher();
 
   function deleteButtonClickEvent(word) {
-    dispatch("deletebtn", {
-      text: word,
+    dispatch('deletebtn', {
+      text: word
     });
   }
 </script>
@@ -43,74 +56,192 @@
     </div>
     <div />
   </div>
-  <div class="no-scrollbar overflow-y-scroll ">
-    <div class="mt-8" />
-    <div class="bg-gray-100 w-full mb-8 overflow-hidden rounded-lg shadow-xs">
-      <div class="bg-gray-100 w-full overflow-x-auto">
-        <table class="w-full whitespace-no-wrap">
-          <thead>
-            <tr
-              class="text-sm md:text-md lg:text-lg  font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
+  <div class="overflow-y-scroll ">
+    <div class="mt-4" />
+    <div class="bg-gray-100 w-full mb-8 rounded-lg shadow-xs">
+      <div class="bg-gray-100 w-full overflow-x-auto space-between-y-4">
+        {#if wordArr}
+          {#each Object.entries(wordArr) as [key, value]}
+            {(value = JSON.parse(value))}
+            <div
+              class="collapse w-full border rounded-box border-gray-300 collapse-arrow text-gray-800"
             >
-              <th class="px-4 py-3">Word</th>
-              <th class="px-4 py-3" />
-            </tr>
-          </thead>
-          <tbody
-            class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
-          >
-            {#if wordlistArr}
-              {#each wordlistArr as word}
-                <tr
-                  class="bg-gray-100 text-gray-700 dark:text-gray-400 text-sm md:text-md lg:text-lg "
+              <input type="checkbox" />
+              <div class="collapse-title text-xl font-medium">
+                <span class="font-bold font-serif text-sm md:text-md lg:text-lg"
+                  >{key}</span
                 >
-                  <td class="px-4 py-3">{word}</td>
-                  <td class="text-red-700 px-4 py-3 text-sm text-center"
-                    ><button
-                      class=""
-                      on:click={() => deleteButtonClickEvent(word)}
-                      ><svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        class="feather feather-x"
-                        ><line x1="18" y1="6" x2="6" y2="18" /><line
-                          x1="6"
-                          y1="6"
-                          x2="18"
-                          y2="18"
-                        /></svg
-                      ></button
-                    ></td
+                <span class="font-medium font-serif text-sm md:text-md lg:text-lg"
+                  >({value.partOfSpeech})</span
+                >
+              </div>
+              <div class="collapse-content">
+                <p
+                  tabindex="0"
+                  class="focus:outline-none text-sm md:text-lg lg:text-xl leading-7 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"
+                >
+                  <span class="text-gray-500 dark:text-gray-50 font-bold"
+                    >Definitions</span
                   >
-                </tr>
-              {/each}
-            {/if}
-          </tbody>
-        </table>
+                </p>
+                <ul
+                  class="px-8 space-y-3 list-disc focus:outline-none text-sm md:text-md lg:text-lg leading-4 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"
+                >
+                  {#each value.definition_arr as definition}
+                    <li>{definition}</li>
+                  {/each}
+                </ul>
+                <p
+                  tabindex="0"
+                  class="focus:outline-none text-sm md:text-lg lg:text-xl leading-7 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"
+                >
+                  <span class="text-gray-500 dark:text-gray-50 font-bold">Usage</span>
+                </p>
+                <ul
+                  class="px-8 space-y-3 list-disc focus:outline-none text-sm md:text-md lg:text-lg leading-4 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"
+                >
+                  {#each value.usage_arr as usage}
+                    <li>{@html usage}</li>
+                  {/each}
+                </ul>
+                {#if value.note}
+                  <p
+                    tabindex="0"
+                    class="focus:outline-none text-sm md:text-lg lg:text-xl leading-7 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"
+                  >
+                    <span class="text-gray-500 dark:text-gray-50 font-bold">Note</span>
+                  </p>
+                  <span
+                    class="space-y-3 list-disc focus:outline-none text-sm md:text-md lg:text-lg leading-4 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"
+                  >
+                    {value.note}
+                  </span>
+                {/if}
+
+                <button class="" on:click={() => deleteButtonClickEvent(key)}
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-x"
+                    ><line x1="18" y1="6" x2="6" y2="18" /><line
+                      x1="6"
+                      y1="6"
+                      x2="18"
+                      y2="18"
+                    /></svg
+                  ></button
+                >
+              </div>
+            </div>
+
+            <!--{(value = JSON.parse(value))}-->
+            <!--{console.log(value.definition_arr)}-->
+            <!--<div-->
+            <!--  class="collapse w-full border rounded-box border-gray-300 collapse-arrow text-gray-800"-->
+            <!-->-->
+            <!--  <input type="checkbox" />-->
+            <!--  <div class="collapse-title text-xl font-medium fixed">-->
+            <!--    <span class="font-bold font-serif text-sm md:text-md lg:text-lg"-->
+            <!--      >{key}</span-->
+            <!--    >-->
+            <!--    <span class="font-medium font-serif text-sm md:text-md lg:text-lg"-->
+            <!--      >{value.partOfSpeech}</span-->
+            <!--    >-->
+
+            <!--    <div class="dropdown dropdown-hover z-40">-->
+            <!--      [><div tabindex="0" class="m-1 btn">open on hover</div><]-->
+            <!--      [><ul<]-->
+            <!--      [>  tabindex="0"<]-->
+            <!--      [>  class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52"<]-->
+            <!--      [>><]-->
+            <!--      [>  <li><]-->
+            <!--      [>    <a>Item 1</a><]-->
+            <!--      [>  </li><]-->
+            <!--      [>  <li><]-->
+            <!--      [>    <a>Item 2</a><]-->
+            <!--      [>  </li><]-->
+            <!--      [>  <li><]-->
+            <!--      [>    <a>Item 3</a><]-->
+            <!--      [>  </li><]-->
+            <!--      [></ul><]-->
+            <!--    </div>-->
+            <!--  </div>-->
+            <!--  <div class="collapse-content">-->
+            <!--    <p-->
+            <!--      tabindex="0"-->
+            <!--      class="focus:outline-none text-sm md:text-lg lg:text-xl leading-7 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"-->
+            <!--    >-->
+            <!--      <span class="text-gray-500 dark:text-gray-50 font-bold"-->
+            <!--        >Definitions</span-->
+            <!--      >-->
+            <!--    </p>-->
+            <!--    <ul-->
+            <!--      class="px-8 space-y-3 list-disc focus:outline-none text-sm md:text-md lg:text-lg leading-4 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"-->
+            <!--    >-->
+            <!--      {#each value.definition_arr as definition}-->
+            <!--        <li>{definition}</li>-->
+            <!--      {/each}-->
+            <!--    </ul>-->
+            <!--    <p-->
+            <!--      tabindex="0"-->
+            <!--      class="focus:outline-none text-sm md:text-lg lg:text-xl leading-7 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"-->
+            <!--    >-->
+            <!--      <span class="text-gray-500 dark:text-gray-50 font-bold">Usage</span>-->
+            <!--    </p>-->
+            <!--    <ul-->
+            <!--      class="px-8 space-y-3 list-disc focus:outline-none text-sm md:text-md lg:text-lg leading-4 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"-->
+            <!--    >-->
+            <!--      {#each value.usage_arr as usage}-->
+            <!--        <li>{@html usage}</li>-->
+            <!--      {/each}-->
+            <!--    </ul>-->
+            <!--    {#if value.note}-->
+            <!--      <p-->
+            <!--        tabindex="0"-->
+            <!--        class="focus:outline-none text-sm md:text-lg lg:text-xl leading-7 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"-->
+            <!--      >-->
+            <!--        <span class="text-gray-500 dark:text-gray-50 font-bold">Note</span>-->
+            <!--      </p>-->
+            <!--      <span-->
+            <!--        class="space-y-3 list-disc focus:outline-none text-sm md:text-md lg:text-lg leading-4 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"-->
+            <!--      >-->
+            <!--        {value.note}-->
+            <!--      </span>-->
+            <!--    {/if}-->
+
+            <!--    <button class="" on:click={() => deleteButtonClickEvent(key)}-->
+            <!--      ><svg-->
+            <!--        xmlns="http://www.w3.org/2000/svg"-->
+            <!--        width="24"-->
+            <!--        height="24"-->
+            <!--        viewBox="0 0 24 24"-->
+            <!--        fill="none"-->
+            <!--        stroke="currentColor"-->
+            <!--        stroke-width="2"-->
+            <!--        stroke-linecap="round"-->
+            <!--        stroke-linejoin="round"-->
+            <!--        class="feather feather-x"-->
+            <!--        ><line x1="18" y1="6" x2="6" y2="18" /><line-->
+            <!--          x1="6"-->
+            <!--          y1="6"-->
+            <!--          x2="18"-->
+            <!--          y2="18"-->
+            <!--        /></svg-->
+            <!--      ></button-->
+            <!--    >-->
+            <!--  </div>-->
+            <!--</div>-->
+          {/each}
+        {/if}
       </div>
     </div>
   </div>
-  <div
-    class="mt-auto mt-4 pt-4 border-t-2 border-gray-200 dark:border-gray-900"
-  />
+  <div class="mt-auto mt-4 pt-4 border-t-2 border-gray-200 dark:border-gray-900" />
 </div>
-
-<style>
-  /* Hide scrollbar for Chrome, Safari and Opera */
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-
-  /* Hide scrollbar for IE, Edge and Firefox */
-  .no-scrollbar {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-  }
-</style>

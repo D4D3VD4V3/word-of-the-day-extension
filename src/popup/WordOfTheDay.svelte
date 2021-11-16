@@ -1,9 +1,29 @@
-<script>
-  import { createEventDispatcher } from "svelte";
-  import { toast } from "@zerodevx/svelte-toast";
-  /*import { deleteButtonClickEvent } from "./WordListCard.svelte";*/
+<style>
+  @layer utilities {
+    @variants responsive {
+      /* Chrome, Safari and Opera */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
 
-  export let word, partOfSpeech, note, cardTitle, saveBtnStatus;
+      .no-scrollbar {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+      }
+    }
+  }
+</style>
+
+<script>
+  import { createEventDispatcher } from 'svelte';
+  import { toast } from '@zerodevx/svelte-toast';
+  /* import { deleteButtonClickEvent } from "./WordListCard.svelte"; */
+
+  export let word;
+  export let partOfSpeech;
+  export let note;
+  export let cardTitle;
+  export let saveBtnStatus;
   export let definition_arr = [];
   export let usage_arr = [];
 
@@ -11,8 +31,8 @@
 
   function saveButtonClickEvent() {
     saveBtnStatus = true;
-    dispatch("savebtn", {
-      text: "Save button clicked",
+    dispatch('savebtn', {
+      text: 'Save button clicked'
     });
   }
 </script>
@@ -34,24 +54,22 @@
       stroke-linecap="round"
       stroke-linejoin="round"
       class="feather feather-sunrise"
-      ><path d="M17 18a5 5 0 0 0-10 0" /><line
-        x1="12"
-        y1="2"
-        x2="12"
-        y2="9"
-      /><line x1="4.22" y1="10.22" x2="5.64" y2="11.64" /><line
-        x1="1"
+      ><path d="M17 18a5 5 0 0 0-10 0" /><line x1="12" y1="2" x2="12" y2="9" /><line
+        x1="4.22"
+        y1="10.22"
+        x2="5.64"
+        y2="11.64"
+      /><line x1="1" y1="18" x2="3" y2="18" /><line
+        x1="21"
         y1="18"
-        x2="3"
+        x2="23"
         y2="18"
-      /><line x1="21" y1="18" x2="23" y2="18" /><line
-        x1="18.36"
-        y1="11.64"
-        x2="19.78"
-        y2="10.22"
-      /><line x1="23" y1="22" x2="1" y2="22" /><polyline
-        points="8 6 12 2 16 6"
-      /></svg
+      /><line x1="18.36" y1="11.64" x2="19.78" y2="10.22" /><line
+        x1="23"
+        y1="22"
+        x2="1"
+        y2="22"
+      /><polyline points="8 6 12 2 16 6" /></svg
     >
   </div>
   <div class=" divide-y-4 divide-opacity-75 ">
@@ -73,8 +91,7 @@
       >
         <span class="font-bold font-serif text-md md:text-xl lg:text-2xl"
           >{word}
-        </span><span
-          class="font-medium font-serif text-md md:text-xl lg:text-2xl"
+        </span><span class="font-medium font-serif text-md md:text-xl lg:text-2xl"
           >({partOfSpeech})</span
         >
       </p>
@@ -82,9 +99,7 @@
         tabindex="0"
         class="focus:outline-none text-sm md:text-lg lg:text-xl leading-7 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"
       >
-        <span class="text-gray-500 dark:text-gray-50 font-bold"
-          >Definitions</span
-        >
+        <span class="text-gray-500 dark:text-gray-50 font-bold">Definitions</span>
       </p>
       <ul
         class="px-8 space-y-3 list-disc focus:outline-none text-sm md:text-md lg:text-lg leading-4 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"
@@ -121,9 +136,7 @@
       {/if}
     </div>
   </div>
-  <div
-    class="mt-auto mt-4 pt-4 border-t-2 border-gray-200 dark:border-gray-900"
-  >
+  <div class="mt-auto mt-4 pt-4 border-t-2 border-gray-200 dark:border-gray-900">
     <div class="flex  items-center justify-between px-4 py-4 sm:px-16">
       {#if saveBtnStatus}
         <button
@@ -142,8 +155,7 @@
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="feather feather-check"
-              ><polyline points="20 6 9 17 4 12" /></svg
+              class="feather feather-check"><polyline points="20 6 9 17 4 12" /></svg
             >
           </span></button
         >
@@ -172,7 +184,7 @@
       {/if}
 
       <button
-        on:click={() => toast.push("Redirecting")}
+        on:click={() => toast.push('Redirecting')}
         class="focus:outline-none rounded-full px-8 sm:py-2 py-1 active:bg-gray-800 bg-gray-700 hover:bg-gray-600 sm:text-base text-sm font-semibold leading-9 text-center text-white"
         ><a href="https://youglish.com/pronounce/{word}/english?"
           >YouGlish <span class="inline-block"
@@ -202,19 +214,3 @@
     </div>
   </div>
 </div>
-
-<style>
-  @layer utilities {
-    @variants responsive {
-      /* Chrome, Safari and Opera */
-      .no-scrollbar::-webkit-scrollbar {
-        display: none;
-      }
-
-      .no-scrollbar {
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
-      }
-    }
-  }
-</style>

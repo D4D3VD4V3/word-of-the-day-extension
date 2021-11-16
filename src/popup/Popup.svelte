@@ -1,6 +1,5 @@
 <script>
-  /*import Counter from "./Counter.svelte";*/
+  /* import Counter from "./Counter.svelte"; */
 </script>
 
-<main class="p-2">
-</main>
+<main class="p-2" />
