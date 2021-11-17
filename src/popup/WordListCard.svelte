@@ -117,27 +117,47 @@
                     {value.note}
                   </span>
                 {/if}
-
-                <button class="" on:click={() => deleteButtonClickEvent(key)}
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="feather feather-x"
-                    ><line x1="18" y1="6" x2="6" y2="18" /><line
-                      x1="6"
-                      y1="6"
-                      x2="18"
-                      y2="18"
-                    /></svg
-                  ></button
-                >
+                <div class="divider" />
+                <div class="flex flex-col justify-center items-center">
+                  <button
+                    class="btn btn-circle btn-md bg-red-500 grid place-items-center border-none"
+                    on:click={() => deleteButtonClickEvent(key)}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      class="inline-block w-6 h-6 stroke-current"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <!--<button class="" on:click={() => deleteButtonClickEvent(key)}-->
+                <!--  ><svg-->
+                <!--    xmlns="http://www.w3.org/2000/svg"-->
+                <!--    width="24"-->
+                <!--    height="24"-->
+                <!--    viewBox="0 0 24 24"-->
+                <!--    fill="none"-->
+                <!--    stroke="currentColor"-->
+                <!--    stroke-width="2"-->
+                <!--    stroke-linecap="round"-->
+                <!--    stroke-linejoin="round"-->
+                <!--    class="feather feather-x"-->
+                <!--    ><line x1="18" y1="6" x2="6" y2="18" /><line-->
+                <!--      x1="6"-->
+                <!--      y1="6"-->
+                <!--      x2="18"-->
+                <!--      y2="18"-->
+                <!--    /></svg-->
+                <!--  ></button-->
+                <!-->-->
               </div>
             </div>
 
