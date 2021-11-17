@@ -14,10 +14,9 @@
 <script>
   import { createEventDispatcher } from 'svelte';
 
-  let parsed;
+  import { fade, fly } from 'svelte/transition';
 
   export let wordArr;
-  // $: parsed = Object.entries(wordArr);
 
   const dispatch = createEventDispatcher();
 
@@ -33,16 +32,16 @@
 <div
   class="flex flex-col transform transition hover:scale-105 hover:shadow-4xl px-8 py-2 bg-gray-100 dark:bg-gray-800 rounded-xl max-w-lg h-auto overflow-hidden"
 >
-  <div
-    class=" text-white flex items-center absolute rounded-full pt-8 pb-4 px-4 left-4 -top-4"
-  >
-    <!--<div class="badge badge-lg">{Object.keys(wordArr).length}</div>-->
-    <div class="shadow stats text-sm rounded-full">
-      <div class="stat text-sm">
-        <div class="stat-value text-sm">{Object.keys(wordArr).length}</div>
-      </div>
-    </div>
-  </div>
+  <!--<div-->
+  <!--  class=" text-white flex items-center absolute rounded-full pt-8 pb-4 px-4 left-4 -top-4"-->
+  <!-->-->
+  <!--  [><div class="badge badge-lg">{Object.keys(wordArr).length}</div><]-->
+  <!--  <div class="shadow stats text-sm rounded-full">-->
+  <!--    <div class="stat text-sm">-->
+  <!--      <div class="stat-value text-sm">{Object.keys(wordArr).length}</div>-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <!--</div>-->
   <div
     class=" text-white flex items-center absolute rounded-full pt-8 pb-4 px-4  bg-green-500 right-4 -top-6"
   >
@@ -66,7 +65,7 @@
         tabindex="0"
         class="py-4 opacity-90 focus:outline-none text-2xl lg:text-3xl font-bold lg:leading-10 text-gray-800 dark:text-gray-50 text-center"
       >
-        Saved Words
+        Saved Words <span class="">({Object.keys(wordArr).length})</span>
       </p>
     </div>
     <div />
@@ -78,6 +77,7 @@
         {#each Object.entries(wordArr) as [key, value] (key)}
           <div
             class="collapse w-full border rounded-box border-gray-300 collapse-arrow text-gray-800 "
+            in:fade
           >
             <input type="checkbox" />
             <div class="collapse-title text-xl font-medium">
