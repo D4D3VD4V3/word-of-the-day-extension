@@ -63,7 +63,7 @@
   <div class="overflow-y-scroll ">
     <div class="mt-4" />
     <div class="bg-gray-100 w-full mb-8 rounded-lg shadow-xs">
-      <div class="bg-gray-100 w-full overflow-x-auto space-between-y-4">
+      <div class="bg-gray-100 w-full overflow-x-auto space-y-4">
         {#each Object.entries(wordArr) as [key, value] (key)}
           <div
             class="collapse w-full border rounded-box border-gray-300 collapse-arrow text-gray-800 "
