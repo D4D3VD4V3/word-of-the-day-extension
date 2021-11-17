@@ -19,6 +19,7 @@
   const dispatch = createEventDispatcher();
 
   function deleteButtonClickEvent(word) {
+    // delete wordArr[word];
     dispatch('deletebtn', {
       text: word
     });
@@ -138,126 +139,8 @@
                     </svg>
                   </button>
                 </div>
-                <!--<button class="" on:click={() => deleteButtonClickEvent(key)}-->
-                <!--  ><svg-->
-                <!--    xmlns="http://www.w3.org/2000/svg"-->
-                <!--    width="24"-->
-                <!--    height="24"-->
-                <!--    viewBox="0 0 24 24"-->
-                <!--    fill="none"-->
-                <!--    stroke="currentColor"-->
-                <!--    stroke-width="2"-->
-                <!--    stroke-linecap="round"-->
-                <!--    stroke-linejoin="round"-->
-                <!--    class="feather feather-x"-->
-                <!--    ><line x1="18" y1="6" x2="6" y2="18" /><line-->
-                <!--      x1="6"-->
-                <!--      y1="6"-->
-                <!--      x2="18"-->
-                <!--      y2="18"-->
-                <!--    /></svg-->
-                <!--  ></button-->
-                <!-->-->
               </div>
             </div>
-
-            <!--{(value = JSON.parse(value))}-->
-            <!--{console.log(value.definition_arr)}-->
-            <!--<div-->
-            <!--  class="collapse w-full border rounded-box border-gray-300 collapse-arrow text-gray-800"-->
-            <!-->-->
-            <!--  <input type="checkbox" />-->
-            <!--  <div class="collapse-title text-xl font-medium fixed">-->
-            <!--    <span class="font-bold font-serif text-sm md:text-md lg:text-lg"-->
-            <!--      >{key}</span-->
-            <!--    >-->
-            <!--    <span class="font-medium font-serif text-sm md:text-md lg:text-lg"-->
-            <!--      >{value.partOfSpeech}</span-->
-            <!--    >-->
-
-            <!--    <div class="dropdown dropdown-hover z-40">-->
-            <!--      [><div tabindex="0" class="m-1 btn">open on hover</div><]-->
-            <!--      [><ul<]-->
-            <!--      [>  tabindex="0"<]-->
-            <!--      [>  class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52"<]-->
-            <!--      [>><]-->
-            <!--      [>  <li><]-->
-            <!--      [>    <a>Item 1</a><]-->
-            <!--      [>  </li><]-->
-            <!--      [>  <li><]-->
-            <!--      [>    <a>Item 2</a><]-->
-            <!--      [>  </li><]-->
-            <!--      [>  <li><]-->
-            <!--      [>    <a>Item 3</a><]-->
-            <!--      [>  </li><]-->
-            <!--      [></ul><]-->
-            <!--    </div>-->
-            <!--  </div>-->
-            <!--  <div class="collapse-content">-->
-            <!--    <p-->
-            <!--      tabindex="0"-->
-            <!--      class="focus:outline-none text-sm md:text-lg lg:text-xl leading-7 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"-->
-            <!--    >-->
-            <!--      <span class="text-gray-500 dark:text-gray-50 font-bold"-->
-            <!--        >Definitions</span-->
-            <!--      >-->
-            <!--    </p>-->
-            <!--    <ul-->
-            <!--      class="px-8 space-y-3 list-disc focus:outline-none text-sm md:text-md lg:text-lg leading-4 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"-->
-            <!--    >-->
-            <!--      {#each value.definition_arr as definition}-->
-            <!--        <li>{definition}</li>-->
-            <!--      {/each}-->
-            <!--    </ul>-->
-            <!--    <p-->
-            <!--      tabindex="0"-->
-            <!--      class="focus:outline-none text-sm md:text-lg lg:text-xl leading-7 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"-->
-            <!--    >-->
-            <!--      <span class="text-gray-500 dark:text-gray-50 font-bold">Usage</span>-->
-            <!--    </p>-->
-            <!--    <ul-->
-            <!--      class="px-8 space-y-3 list-disc focus:outline-none text-sm md:text-md lg:text-lg leading-4 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"-->
-            <!--    >-->
-            <!--      {#each value.usage_arr as usage}-->
-            <!--        <li>{@html usage}</li>-->
-            <!--      {/each}-->
-            <!--    </ul>-->
-            <!--    {#if value.note}-->
-            <!--      <p-->
-            <!--        tabindex="0"-->
-            <!--        class="focus:outline-none text-sm md:text-lg lg:text-xl leading-7 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"-->
-            <!--      >-->
-            <!--        <span class="text-gray-500 dark:text-gray-50 font-bold">Note</span>-->
-            <!--      </p>-->
-            <!--      <span-->
-            <!--        class="space-y-3 list-disc focus:outline-none text-sm md:text-md lg:text-lg leading-4 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"-->
-            <!--      >-->
-            <!--        {value.note}-->
-            <!--      </span>-->
-            <!--    {/if}-->
-
-            <!--    <button class="" on:click={() => deleteButtonClickEvent(key)}-->
-            <!--      ><svg-->
-            <!--        xmlns="http://www.w3.org/2000/svg"-->
-            <!--        width="24"-->
-            <!--        height="24"-->
-            <!--        viewBox="0 0 24 24"-->
-            <!--        fill="none"-->
-            <!--        stroke="currentColor"-->
-            <!--        stroke-width="2"-->
-            <!--        stroke-linecap="round"-->
-            <!--        stroke-linejoin="round"-->
-            <!--        class="feather feather-x"-->
-            <!--        ><line x1="18" y1="6" x2="6" y2="18" /><line-->
-            <!--          x1="6"-->
-            <!--          y1="6"-->
-            <!--          x2="18"-->
-            <!--          y2="18"-->
-            <!--        /></svg-->
-            <!--      ></button-->
-            <!--    >-->
-            <!--  </div>-->
-            <!--</div>-->
           {/each}
         {/if}
       </div>

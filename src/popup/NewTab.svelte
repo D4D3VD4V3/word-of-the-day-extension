@@ -168,7 +168,8 @@
   async function deleteWord(event) {
     try {
       console.log(event.detail);
-      wordArr = wordArr.filter(el => el !== event.detail.text);
+      // wordArr = wordArr.filter(el => el !== event.detail.text);
+      delete wordArr[event.detail.text];
       let wordlist = await readLocalStorage('wordlist');
       wordlist = wordlist || {};
       delete wordlist[event.detail.text];
@@ -220,8 +221,11 @@
 
 <main class="h-screen">
   {#if loaded}
+    <!--<div-->
+    <!--class="bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 w-full h-full justify-center flex py-16"-->
+    <!-->-->
     <div
-      class="bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 w-full h-full justify-center flex py-16"
+      class="bg-gradient-to-r from-blue-700 via-blue-800 to-gray-900 w-full h-full justify-center flex py-16"
     >
       <div class=" grid grid-cols-1 gap-12 xl:grid-cols-2 max-h-full">
         {#await primaryPromise}
@@ -242,7 +246,7 @@
     </div>
   {:else}
     <div
-      class="bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 w-full h-screen justify-center flex py-12 px-4 gap-5 "
+      class="bg-gradient-to-r from-blue-700 via-blue-800 to-gray-900 w-full h-screen justify-center flex py-12 px-4 gap-5 "
     />
   {/if}
 </main>
