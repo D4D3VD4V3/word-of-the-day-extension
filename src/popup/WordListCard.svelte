@@ -34,6 +34,16 @@
   class="flex flex-col transform transition hover:scale-105 hover:shadow-4xl px-8 py-2 bg-gray-100 dark:bg-gray-800 rounded-xl max-w-lg h-auto overflow-hidden"
 >
   <div
+    class=" text-white flex items-center absolute rounded-full pt-8 pb-4 px-4 left-4 -top-4"
+  >
+    <div class="shadow stats text-sm rounded-full">
+      <div class="stat text-sm">
+        <div class="stat-value text-sm">{Object.keys(wordArr).length}</div>
+        <!--<div class="stat-desc">words</div>-->
+      </div>
+    </div>
+  </div>
+  <div
     class=" text-white flex items-center absolute rounded-full pt-8 pb-4 px-4  bg-green-500 right-4 -top-6"
   >
     <svg
