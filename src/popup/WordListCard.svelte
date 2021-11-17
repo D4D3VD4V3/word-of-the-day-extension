@@ -17,12 +17,13 @@
   let parsed;
 
   export let wordArr;
-  $: parsed = Object.entries(wordArr);
+  // $: parsed = Object.entries(wordArr);
 
   const dispatch = createEventDispatcher();
 
   function deleteButtonClickEvent(word) {
-    // delete wordArr[word];
+    delete wordArr[word];
+    wordArr = wordArr;
     dispatch('deletebtn', {
       text: word
     });

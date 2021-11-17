@@ -54,6 +54,7 @@
 
 <script>
   import { onMount } from 'svelte';
+  import { fade, fly } from 'svelte/transition';
   import { SvelteToast, toast } from '@zerodevx/svelte-toast';
   import WordOfTheDay from './WordOfTheDay.svelte';
   import WordListCard from './WordListCard.svelte';
@@ -159,8 +160,8 @@
       wordlist = wordlist || {};
 
       wordlist[wotdobj.word] = JSON.stringify(wotdobj);
-      console.log(wordArr);
       wordArr[wotdobj.word] = wotdobj;
+      wordArr = wordArr;
 
       writeLocalStorage('wordlist', wordlist);
       toast.push('Saved!');
@@ -174,7 +175,7 @@
     try {
       console.log(event.detail);
       // wordArr = wordArr.filter(el => el !== event.detail.text);
-      delete wordArr[event.detail.text];
+      // delete wordArr[event.detail.text];
       let wordlist = await readLocalStorage('wordlist');
       wordlist = wordlist || {};
       delete wordlist[event.detail.text];
@@ -232,7 +233,7 @@
     <div
       class="bg-gradient-to-r from-blue-700 via-blue-800 to-gray-900 w-full h-full justify-center flex py-16"
     >
-      <div class=" grid grid-cols-1 gap-12 xl:grid-cols-2 max-h-full">
+      <div class=" grid grid-cols-1 gap-12 xl:grid-cols-2 max-h-full" in:fly={{}}>
         {#await primaryPromise}
           <LoadingCard />
         {:then wotdArgs}
@@ -243,9 +244,7 @@
             bind:saveBtnStatus
           />
         {/await}
-        {#if wordArr}
-          <WordListCard on:deletebtn={deleteWord} bind:wordArr />
-        {/if}
+        <WordListCard on:deletebtn={deleteWord} bind:wordArr />
       </div>
       <SvelteToast />
     </div>

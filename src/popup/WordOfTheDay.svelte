@@ -17,6 +17,7 @@
 <script>
   import { createEventDispatcher } from 'svelte';
   import { toast } from '@zerodevx/svelte-toast';
+  import { fade, fly } from 'svelte/transition';
   /* import { deleteButtonClickEvent } from "./WordListCard.svelte"; */
 
   export let word;
