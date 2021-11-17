@@ -36,10 +36,10 @@
   <div
     class=" text-white flex items-center absolute rounded-full pt-8 pb-4 px-4 left-4 -top-4"
   >
+    <!--<div class="badge badge-lg">{Object.keys(wordArr).length}</div>-->
     <div class="shadow stats text-sm rounded-full">
       <div class="stat text-sm">
         <div class="stat-value text-sm">{Object.keys(wordArr).length}</div>
-        <!--<div class="stat-desc">words</div>-->
       </div>
     </div>
   </div>
@@ -129,8 +129,26 @@
               {/if}
               <div class="divider" />
               <div class="flex flex-col justify-center items-center">
+                <!--<a href="#my-modal" class="btn bg-red-500 m-10 border-none rounded-full"-->
+                <!--  >DELETE</a-->
+                <!-->-->
+
+                <!--<div id="my-modal" class="modal">-->
+                <!--  <div class="modal-box bg-gray-100">-->
+                <!--    <p>Are you sure you want to delete this word?</p>-->
+                <!--    <div class="modal-action">-->
+                <!--      <a-->
+                <!--        href="#"-->
+                <!--        class="btn bg-red-500 border-none rounded-full"-->
+                <!--        on:click={() => deleteButtonClickEvent(key)}>Yes</a-->
+                <!--      >-->
+                <!--      <a href="#" class="btn border-none rounded-full">No</a>-->
+                <!--    </div>-->
+                <!--  </div>-->
+                <!--</div>-->
+
                 <button
-                  class="btn btn-circle btn-md bg-red-500 grid place-items-center border-none"
+                  class="btn btn-circle btn-md bg-red-700 grid place-items-center border-none"
                   on:click={() => deleteButtonClickEvent(key)}
                 >
                   <svg
