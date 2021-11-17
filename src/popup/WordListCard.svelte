@@ -14,7 +14,10 @@
 <script>
   import { createEventDispatcher } from 'svelte';
 
+  let parsed;
+
   export let wordArr;
+  $: parsed = Object.entries(wordArr);
 
   const dispatch = createEventDispatcher();
 
@@ -61,88 +64,82 @@
     <div class="mt-4" />
     <div class="bg-gray-100 w-full mb-8 rounded-lg shadow-xs">
       <div class="bg-gray-100 w-full overflow-x-auto space-between-y-4">
-        {#if wordArr}
-          {#each Object.entries(wordArr) as [key, value]}
-            {(value = JSON.parse(value))}
-            <div
-              class="collapse w-full border rounded-box border-gray-300 collapse-arrow text-gray-800"
-            >
-              <input type="checkbox" />
-              <div class="collapse-title text-xl font-medium">
-                <span class="font-bold font-serif text-sm md:text-md lg:text-lg"
-                  >{key}</span
-                >
-                <span class="font-medium font-serif text-sm md:text-md lg:text-lg"
-                  >({value.partOfSpeech})</span
-                >
-              </div>
-              <div class="collapse-content">
+        {#each Object.entries(wordArr) as [key, value] (key)}
+          <div
+            class="collapse w-full border rounded-box border-gray-300 collapse-arrow text-gray-800 "
+          >
+            <input type="checkbox" />
+            <div class="collapse-title text-xl font-medium">
+              <span class="font-bold font-serif text-sm md:text-md lg:text-lg">{key}</span
+              >
+              <span class="font-medium font-serif text-sm md:text-md lg:text-lg"
+                >({value.partOfSpeech})</span
+              >
+            </div>
+            <div class="collapse-content">
+              <p
+                tabindex="0"
+                class="focus:outline-none text-sm md:text-lg lg:text-xl leading-7 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"
+              >
+                <span class="text-gray-500 dark:text-gray-50 font-bold">Definitions</span>
+              </p>
+              <ul
+                class="px-8 space-y-3 list-disc focus:outline-none text-sm md:text-md lg:text-lg leading-4 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"
+              >
+                {#each value.definition_arr as definition}
+                  <li>{definition}</li>
+                {/each}
+              </ul>
+              <p
+                tabindex="0"
+                class="focus:outline-none text-sm md:text-lg lg:text-xl leading-7 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"
+              >
+                <span class="text-gray-500 dark:text-gray-50 font-bold">Usage</span>
+              </p>
+              <ul
+                class="px-8 space-y-3 list-disc focus:outline-none text-sm md:text-md lg:text-lg leading-4 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"
+              >
+                {#each value.usage_arr as usage}
+                  <li>{@html usage}</li>
+                {/each}
+              </ul>
+              {#if value.note}
                 <p
                   tabindex="0"
                   class="focus:outline-none text-sm md:text-lg lg:text-xl leading-7 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"
                 >
-                  <span class="text-gray-500 dark:text-gray-50 font-bold"
-                    >Definitions</span
-                  >
+                  <span class="text-gray-500 dark:text-gray-50 font-bold">Note</span>
                 </p>
-                <ul
-                  class="px-8 space-y-3 list-disc focus:outline-none text-sm md:text-md lg:text-lg leading-4 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"
+                <span
+                  class="space-y-3 list-disc focus:outline-none text-sm md:text-md lg:text-lg leading-4 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"
                 >
-                  {#each value.definition_arr as definition}
-                    <li>{definition}</li>
-                  {/each}
-                </ul>
-                <p
-                  tabindex="0"
-                  class="focus:outline-none text-sm md:text-lg lg:text-xl leading-7 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"
+                  {value.note}
+                </span>
+              {/if}
+              <div class="divider" />
+              <div class="flex flex-col justify-center items-center">
+                <button
+                  class="btn btn-circle btn-md bg-red-500 grid place-items-center border-none"
+                  on:click={() => deleteButtonClickEvent(key)}
                 >
-                  <span class="text-gray-500 dark:text-gray-50 font-bold">Usage</span>
-                </p>
-                <ul
-                  class="px-8 space-y-3 list-disc focus:outline-none text-sm md:text-md lg:text-lg leading-4 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"
-                >
-                  {#each value.usage_arr as usage}
-                    <li>{@html usage}</li>
-                  {/each}
-                </ul>
-                {#if value.note}
-                  <p
-                    tabindex="0"
-                    class="focus:outline-none text-sm md:text-lg lg:text-xl leading-7 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    class="inline-block w-6 h-6 stroke-current"
                   >
-                    <span class="text-gray-500 dark:text-gray-50 font-bold">Note</span>
-                  </p>
-                  <span
-                    class="space-y-3 list-disc focus:outline-none text-sm md:text-md lg:text-lg leading-4 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"
-                  >
-                    {value.note}
-                  </span>
-                {/if}
-                <div class="divider" />
-                <div class="flex flex-col justify-center items-center">
-                  <button
-                    class="btn btn-circle btn-md bg-red-500 grid place-items-center border-none"
-                    on:click={() => deleteButtonClickEvent(key)}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      class="inline-block w-6 h-6 stroke-current"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </button>
-                </div>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
               </div>
             </div>
-          {/each}
-        {/if}
+          </div>
+        {/each}
       </div>
     </div>
   </div>

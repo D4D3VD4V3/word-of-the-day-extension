@@ -96,6 +96,11 @@
 
   async function retrieveWords() {
     const wordlist = await readLocalStorage('wordlist');
+    if (wordlist) {
+      for (const [key, value] of Object.entries(wordlist)) {
+        wordlist[key] = JSON.parse(value);
+      }
+    }
     return wordlist || {};
   }
   // https://stackoverflow.com/a/30599930
