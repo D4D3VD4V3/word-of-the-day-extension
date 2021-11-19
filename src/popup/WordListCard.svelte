@@ -13,6 +13,7 @@
 
 <script>
   import { createEventDispatcher } from 'svelte';
+  import { toast } from '@zerodevx/svelte-toast';
 
   import { fade, fly } from 'svelte/transition';
 
@@ -85,7 +86,9 @@
                 d="M412.485 203.954h.041c0-14.323-5.609-27.336-14.729-37.042l.016-.016-79.27-101.819H90.479L13.493 168.961l.033.033C6.243 177.61 1.764 188.559.992 200.508.415 201.629 0 202.84 0 204.19v135.138a8.127 8.127 0 0 0 8.129 8.129h396.276a8.121 8.121 0 0 0 8.129-8.129V204.19c-.001-.081-.049-.155-.049-.236zM97.844 81.335H311.43l48.389 68.5c-.512-.016-1-.081-1.52-.081h-97.502v24.369c0 27.67-29.052 21.687-37.96 21.687h-32.466c-8.909 0-37.96 5.983-37.96-21.687v-24.369H54.9c-1.016 0-2.008.098-3.016.146l45.96-68.565zm298.432 249.864H16.265V204.19c0-.081-.041-.154-.049-.236h.723c0-20.923 17.029-37.944 37.96-37.944h81.253v8.112c0 27.987 21.281 37.944 54.218 37.944h32.466c32.945 0 54.218-9.957 54.218-37.944v-8.112h81.261c10.461 0 19.948 4.251 26.824 11.12l.016.016c6.869 6.869 11.112 16.347 11.112 26.808h.057c0 .081-.049.154-.049.236l.001 127.009z"
               /></svg
             >
-            <p class="text-gray-500">Save some words and they will show up here!</p>
+            <p class="text-gray-500 text-base">
+              Save some words and they will show up here!
+            </p>
           </div>
         </div>
       </div>
@@ -153,24 +156,37 @@
                 {/if}
                 <div class="divider" />
                 <div class="flex flex-col justify-center items-center">
-                  <!--<a href="#my-modal" class="btn bg-red-500 m-10 border-none rounded-full"-->
-                  <!--  >DELETE</a-->
-                  <!-->-->
-
-                  <!--<div id="my-modal" class="modal">-->
-                  <!--  <div class="modal-box bg-gray-100">-->
-                  <!--    <p>Are you sure you want to delete this word?</p>-->
-                  <!--    <div class="modal-action">-->
-                  <!--      <a-->
-                  <!--        href="#"-->
-                  <!--        class="btn bg-red-500 border-none rounded-full"-->
-                  <!--        on:click={() => deleteButtonClickEvent(key)}>Yes</a-->
-                  <!--      >-->
-                  <!--      <a href="#" class="btn border-none rounded-full">No</a>-->
-                  <!--    </div>-->
-                  <!--  </div>-->
-                  <!--</div>-->
-
+                  <button
+                    on:click={() => toast.push('Redirecting')}
+                    class="focus:outline-none rounded-full px-8 sm:py-2 py-1 active:bg-gray-800 bg-gray-700 hover:bg-gray-600 sm:text-base text-sm font-semibold leading-9 text-center text-white"
+                    ><a href="https://youglish.com/pronounce/{key}/english?"
+                      >YouGlish <span class="inline-block"
+                        ><svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="12"
+                          height="12"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          class="feather feather-external-link"
+                          ><path
+                            d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                          /><polyline points="15 3 21 3 21 9" /><line
+                            x1="10"
+                            y1="14"
+                            x2="21"
+                            y2="3"
+                          /></svg
+                        ></span
+                      ></a
+                    ></button
+                  >
+                </div>
+                <div class="divider" />
+                <div class="flex flex-col justify-center items-center">
                   <button
                     class="btn btn-circle btn-md bg-red-700 grid place-items-center border-none"
                     on:click={() => deleteButtonClickEvent(key)}
