@@ -1,4 +1,25 @@
 <style>
+  /*  .background-animate {
+    background-size: 400%;
+
+    -webkit-animation: AnimationName 120s ease infinite;
+    -moz-animation: AnimationName 120s ease infinite;
+    animation: AnimationName 120s ease infinite;
+  }
+
+  @keyframes AnimationName {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  } */
+  body {
+    background-color: black;
+  }
+
   :global(.scrollbox) {
     position: relative;
     z-index: 1;
@@ -226,16 +247,19 @@
 </script>
 
 <main class="h-screen">
-  {#if loaded}
-    <!--<div-->
-    <!--class="bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 w-full h-full justify-center flex py-16"-->
-    <!-->-->
-    <div
-      class="bg-gradient-to-r from-blue-700 via-blue-800 to-gray-900 w-full h-full justify-center flex py-16"
-    >
+  <!--<div-->
+  <!--  class="bg-opacity-25 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 w-full h-full justify-center flex py-16 background-animate"-->
+  <!-->-->
+  <div
+    class="bg-gradient-to-r from-blue-700 via-blue-800 to-gray-900 w-full h-full justify-center flex py-16 background-animate"
+  >
+    {#if loaded}
+      <!--<div-->
+      <!--class="bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 w-full h-full justify-center flex py-16"-->
+      <!-->-->
       <div class=" grid grid-cols-1 gap-12 xl:grid-cols-2 max-h-full" in:fly={{}}>
         {#await primaryPromise}
-          <LoadingCard />
+          <!--<LoadingCard />-->
         {:then wotdArgs}
           <WordOfTheDay
             {...wotdObj}
@@ -247,30 +271,33 @@
         <WordListCard on:deletebtn={deleteWord} bind:wordArr />
       </div>
       <SvelteToast />
-    </div>
-  {:else}
-    <div
-      class="bg-gradient-to-r from-blue-700 via-blue-800 to-gray-900 w-full h-screen justify-center flex py-12 px-4 gap-5 "
-    >
-      <div class="flex items-center justify-center w-full h-full">
-        <div class="flex justify-center items-center space-x-1 text-md text-white">
-          <svg
-            fill="none"
-            class="w-6 h-6 animate-spin"
-            viewBox="0 0 32 32"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              clip-rule="evenodd"
-              d="M15.165 8.53a.5.5 0 01-.404.58A7 7 0 1023 16a.5.5 0 011 0 8 8 0 11-9.416-7.874.5.5 0 01.58.404z"
-              fill="currentColor"
-              fill-rule="evenodd"
-            />
-          </svg>
+    {:else}
+      <div
+        class="bg-gradient-to-r from-blue-700 via-blue-800 to-gray-900 w-full h-screen justify-center flex py-12 px-4 gap-5 "
+      >
+        <!--<div-->
+        <!--  class="bg-opacity-25 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 w-full h-full justify-center flex py-16 background-animate"-->
+        <!-->-->
+        <div class="flex items-center justify-center w-full h-full">
+          <div class="flex justify-center items-center space-x-1 text-md text-white">
+            <svg
+              fill="none"
+              class="w-6 h-6 animate-spin"
+              viewBox="0 0 32 32"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M15.165 8.53a.5.5 0 01-.404.58A7 7 0 1023 16a.5.5 0 011 0 8 8 0 11-9.416-7.874.5.5 0 01.58.404z"
+                fill="currentColor"
+                fill-rule="evenodd"
+              />
+            </svg>
 
-          <div class="text-lg text-white">Loading ...</div>
+            <div class="text-lg text-white">Loading ...</div>
+          </div>
         </div>
       </div>
-    </div>
-  {/if}
+    {/if}
+  </div>
 </main>
