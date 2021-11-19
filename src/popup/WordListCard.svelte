@@ -14,8 +14,12 @@
 <script>
   import { createEventDispatcher } from 'svelte';
   import { toast } from '@zerodevx/svelte-toast';
-
   import { fade, fly } from 'svelte/transition';
+  import WordComponentWord from './WordComponentWord.svelte';
+  import WordComponentDefinition from './WordComponentDefinition.svelte';
+  import WordComponentUsage from './WordComponentUsage.svelte';
+  import WordComponentNote from './WordComponentNote.svelte';
+  import YouGlishButton from './YouGlishButton.svelte';
 
   export let wordArr;
 
@@ -63,7 +67,6 @@
   <div class="divide-y-4 divide-opacity-75 ">
     <div>
       <p
-        tabindex="0"
         class="py-4 opacity-90 focus:outline-none text-2xl lg:text-3xl font-bold lg:leading-10 text-gray-800 dark:text-gray-50 text-center"
       >
         Saved Words <span class="">({Object.keys(wordArr).length})</span>
@@ -113,77 +116,12 @@
                 >
               </div>
               <div class="collapse-content">
-                <p
-                  tabindex="0"
-                  class="focus:outline-none text-sm md:text-lg lg:text-xl leading-7 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"
-                >
-                  <span class="text-gray-500 dark:text-gray-50 font-bold"
-                    >Definitions</span
-                  >
-                </p>
-                <ul
-                  class="px-8 space-y-3 list-disc focus:outline-none text-sm md:text-md lg:text-lg leading-4 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"
-                >
-                  {#each value.definition_arr as definition}
-                    <li>{definition}</li>
-                  {/each}
-                </ul>
-                <p
-                  tabindex="0"
-                  class="focus:outline-none text-sm md:text-lg lg:text-xl leading-7 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"
-                >
-                  <span class="text-gray-500 dark:text-gray-50 font-bold">Usage</span>
-                </p>
-                <ul
-                  class="px-8 space-y-3 list-disc focus:outline-none text-sm md:text-md lg:text-lg leading-4 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"
-                >
-                  {#each value.usage_arr as usage}
-                    <li>{@html usage}</li>
-                  {/each}
-                </ul>
-                {#if value.note}
-                  <p
-                    tabindex="0"
-                    class="focus:outline-none text-sm md:text-lg lg:text-xl leading-7 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"
-                  >
-                    <span class="text-gray-500 dark:text-gray-50 font-bold">Note</span>
-                  </p>
-                  <span
-                    class="space-y-3 list-disc focus:outline-none text-sm md:text-md lg:text-lg leading-4 text-gray-700 dark:text-gray-300 mt-3 md:mt-6"
-                  >
-                    {value.note}
-                  </span>
-                {/if}
+                <WordComponentDefinition definition_arr={value.definition_arr} />
+                <WordComponentUsage usage_arr={value.usage_arr} />
+                <WordComponentNote note={value.note} />
                 <div class="divider" />
                 <div class="flex flex-col justify-center items-center">
-                  <button
-                    on:click={() => toast.push('Redirecting')}
-                    class="focus:outline-none rounded-full px-8 sm:py-2 py-1 active:bg-gray-800 bg-gray-700 hover:bg-gray-600 sm:text-base text-sm font-semibold leading-9 text-center text-white"
-                    ><a href="https://youglish.com/pronounce/{key}/english?"
-                      >YouGlish <span class="inline-block"
-                        ><svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="12"
-                          height="12"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          class="feather feather-external-link"
-                          ><path
-                            d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-                          /><polyline points="15 3 21 3 21 9" /><line
-                            x1="10"
-                            y1="14"
-                            x2="21"
-                            y2="3"
-                          /></svg
-                        ></span
-                      ></a
-                    ></button
-                  >
+                  <YouGlishButton word={key} />
                 </div>
                 <div class="divider" />
                 <div class="flex flex-col justify-center items-center">
