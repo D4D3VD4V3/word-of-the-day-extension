@@ -1,11 +1,15 @@
 {
-  "manifest_version": 2,
-  "version": "0.1",
-  "name": "Word of the Day",
-  "background": { "scripts": ["background/index.js"] },
-  "chrome_url_overrides" : {
-      "newtab": "popup/index.html"
-  },
-  "permissions": ["https://oq3p80.deta.dev/"]
-
+    "manifest_version": 2,
+    "version": "0.3",
+    "name": "Word of the Day",
+    "background": { "scripts": ["background/index.js"] },
+    "chrome_url_overrides" : {
+        "newtab": "popup/index.html"
+    },
+    "permissions": ["https://oq3p80.deta.dev/"],
+    "icons": {
+        "16": "icons/dictionary_16x16.png",
+        "48": "icons/dictionary_48x48.png",
+        "128": "icons/dictionary_128x128.png"
+    }
 }
