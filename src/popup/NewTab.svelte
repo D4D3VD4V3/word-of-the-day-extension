@@ -5,8 +5,11 @@
   import { onMount } from 'svelte';
   import { fade, fly } from 'svelte/transition';
   import { SvelteToast, toast } from '@zerodevx/svelte-toast';
+  import nightwind from 'nightwind/helper';
   import WordOfTheDay from './WordOfTheDay.svelte';
   import WordListCard from './WordListCard.svelte';
+
+  let darkModeEnabled;
 
   let loaded;
   let saveBtnStatus;
@@ -15,6 +18,7 @@
   let wotdObj;
   $: saveBtnStatus = false;
   $: loaded = false;
+  $: darkModeEnabled = false;
   $: wordArr = [];
   function readLocalStorage(key) {
     return new Promise(resolve =>
@@ -141,6 +145,7 @@
       toast.push('Error');
       console.error(err.message);
     }
+    /* nightwind.enable(true); */
 
     const btn = document.querySelector('.hamburger-btn');
     const sidebar = document.querySelector('.sidebar');
@@ -169,10 +174,15 @@
       <!-- settings -->
       <div class="flex-1 px-8 py-16 space-y-8 text-bold text-base">
         <div class="flex justify-between items-center">
-          <p>Settings 1</p>
-          <input type="checkbox" checked="" class="toggle" />
+          <p>Dark Mode</p>
+          <input
+            type="checkbox"
+            on:click={() => nightwind.toggle()}
+            bind:checked={darkModeEnabled}
+            class="toggle"
+          />
         </div>
-        <div>Settings 2</div>
+        <div>{darkModeEnabled}</div>
         <!--<div>
           <button
             class="focus:outline-none rounded-full px-8 sm:py-2 py-1 active:bg-gray-800 bg-gray-700 hover:bg-gray-600 sm:text-base text-sm font-semibold leading-9 text-center text-white"
