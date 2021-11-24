@@ -16,7 +16,6 @@
   $: saveBtnStatus = false;
   $: loaded = false;
   $: wordArr = [];
-
   function readLocalStorage(key) {
     return new Promise(resolve =>
       chrome.storage.local.get([key], result =>
@@ -142,6 +141,14 @@
       toast.push('Error');
       console.error(err.message);
     }
+
+    const btn = document.querySelector('.hamburger-btn');
+    const sidebar = document.querySelector('.sidebar');
+
+    // add our event listener for the click
+    btn.addEventListener('click', () => {
+      sidebar.classList.toggle('-translate-x-2/3');
+    });
   });
 
   async function setValues() {
@@ -153,47 +160,109 @@
   const primaryPromise = setValues();
 </script>
 
-<main class="h-screen">
-  <div
-    class="bg-gradient-to-r from-blue-700 via-blue-800 to-gray-900 w-full h-full justify-center flex py-16 background-animate"
-  >
-    {#if loaded}
-      <div class=" grid grid-cols-1 gap-12 xl:grid-cols-2 max-h-full" in:fly={{}}>
-        {#await primaryPromise then wotdArgs}
-          <WordOfTheDay
-            {...wotdObj}
-            cardTitle="Word of the Day"
-            on:savebtn={saveWord}
-            bind:saveBtnStatus
-          />
-        {/await}
-        <WordListCard on:deletebtn={deleteWord} bind:wordArr />
+<main class="bg-gradient-to-r from-blue-700 via-blue-800 to-gray-900 h-screen">
+  <div class="flex ">
+    <!-- settings hamburger-->
+    <div
+      class="sidebar flex absolute inset-y-0 flex-row w-96 transform -translate-x-2/3  transition duration-200 ease-in-out"
+    >
+      <!-- settings -->
+      <div class="flex-1 px-8 py-16 space-y-8 text-bold text-base">
+        <div class="flex justify-between items-center">
+          <p>Settings 1</p>
+          <input type="checkbox" checked="" class="toggle" />
+        </div>
+        <div>Settings 2</div>
+        <!--<div>
+          <button
+            class="focus:outline-none rounded-full px-8 sm:py-2 py-1 active:bg-gray-800 bg-gray-700 hover:bg-gray-600 sm:text-base text-sm font-semibold leading-9 text-center text-white"
+            ><a href="#"
+              >Export <span class="inline-block"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  > <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 16v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-7a2 2 0 012-2h2m3-4H9a2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-1m-1 4l-3 3m0 0l-3-3m3 3V3"
+                  />
+                  >
+                </svg></span
+              ></a
+            ></button
+          >
+        </div>
+-->
       </div>
-      <SvelteToast />
-    {:else}
-      <div
-        class="bg-gradient-to-r from-blue-700 via-blue-800 to-gray-900 w-full h-screen justify-center flex py-12 px-4 gap-5 "
-      >
-        <div class="flex items-center justify-center w-full h-full">
-          <div class="flex justify-center items-center space-x-1 text-md text-white">
-            <svg
-              fill="none"
-              class="w-6 h-6 animate-spin"
-              viewBox="0 0 32 32"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                clip-rule="evenodd"
-                d="M15.165 8.53a.5.5 0 01-.404.58A7 7 0 1023 16a.5.5 0 011 0 8 8 0 11-9.416-7.874.5.5 0 01.58.404z"
-                fill="currentColor"
-                fill-rule="evenodd"
-              />
-            </svg>
 
-            <div class="text-lg text-white">Loading ...</div>
+      <!--
+      <div
+        class="w-1/3 absolute inset-y-0 left-16 transform -translate-x-full relative translate-x- transition duration-200 ease-in-out"
+      >
+-->
+      <div class="w-1/3 relative">
+        <button class="hamburger-btn p-4 focus:outline-none">
+          <svg
+            class="w-8 h-8"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="w-screen h-screen justify-center flex py-16 background-animate">
+      {#if loaded}
+        <div class=" grid grid-cols-1 gap-12 xl:grid-cols-2 max-h-full" in:fly={{}}>
+          {#await primaryPromise then wotdArgs}
+            <WordOfTheDay
+              {...wotdObj}
+              cardTitle="Word of the Day"
+              on:savebtn={saveWord}
+              bind:saveBtnStatus
+            />
+          {/await}
+          <WordListCard on:deletebtn={deleteWord} bind:wordArr />
+        </div>
+        <SvelteToast />
+      {:else}
+        <div
+          class="bg-gradient-to-r from-blue-700 via-blue-800 to-gray-900 w-full h-screen justify-center flex py-12 px-4 gap-5 "
+        >
+          <div class="flex items-center justify-center w-full h-full">
+            <div class="flex justify-center items-center space-x-1 text-md text-white">
+              <svg
+                fill="none"
+                class="w-6 h-6 animate-spin"
+                viewBox="0 0 32 32"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M15.165 8.53a.5.5 0 01-.404.58A7 7 0 1023 16a.5.5 0 011 0 8 8 0 11-9.416-7.874.5.5 0 01.58.404z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                />
+              </svg>
+
+              <div class="text-lg text-white">Loading ...</div>
+            </div>
           </div>
         </div>
-      </div>
-    {/if}
+      {/if}
+    </div>
   </div>
 </main>
