@@ -126,7 +126,7 @@
                 <div class="divider" />
                 <div class="flex flex-col justify-center items-center">
                   <button
-                    class="btn btn-circle btn-md bg-red-700 grid place-items-center border-none"
+                    class="btn btn-circle btn-md dark:bg-red-700 bg-red-700 grid place-items-center border-none"
                     on:click={() => deleteButtonClickEvent(key)}
                   >
                     <svg

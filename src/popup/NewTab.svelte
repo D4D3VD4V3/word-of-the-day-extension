@@ -20,6 +20,7 @@
   $: loaded = false;
   $: darkModeEnabled = false;
   $: wordArr = [];
+
   function readLocalStorage(key) {
     return new Promise(resolve =>
       chrome.storage.local.get([key], result =>
@@ -145,13 +146,13 @@
       toast.push('Error');
       console.error(err.message);
     }
-    /* nightwind.enable(true); */
 
-    const btn = document.querySelector('.hamburger-btn');
+    darkModeEnabled = (await readLocalStorage('darkmode')) || false;
+    nightwind.enable(darkModeEnabled);
+    const hamburgerBtn = document.querySelector('.hamburger-btn');
     const sidebar = document.querySelector('.sidebar');
 
-    // add our event listener for the click
-    btn.addEventListener('click', () => {
+    hamburgerBtn.addEventListener('click', () => {
       sidebar.classList.toggle('-translate-x-2/3');
     });
   });
@@ -171,19 +172,26 @@
     <div
       class="sidebar flex absolute inset-y-0 flex-row w-96 transform -translate-x-2/3  transition duration-200 ease-in-out"
     >
-      <!-- settings -->
-      <div class="flex-1 px-8 py-16 space-y-8 text-bold text-base">
-        <div class="flex justify-between items-center">
-          <p>Dark Mode</p>
-          <input
-            type="checkbox"
-            on:click={() => nightwind.toggle()}
-            bind:checked={darkModeEnabled}
-            class="toggle"
-          />
+      <div class="flex flex-col flex-1">
+        <div class="pt-8 flex items-center justify-center">
+          <p class="text-lg font-bold">SETTINGS</p>
         </div>
-        <div>{darkModeEnabled}</div>
-        <!--<div>
+        <!-- settings -->
+        <div class="flex-1 px-8 py-16 space-y-8 text-bold text-base">
+          <div class="flex justify-between items-center">
+            <p>Dark Mode</p>
+            <input
+              type="checkbox"
+              bind:checked={darkModeEnabled}
+              on:click={() => {
+                nightwind.toggle();
+                writeLocalStorage('darkmode', !darkModeEnabled);
+              }}
+              class="toggle"
+            />
+          </div>
+          <div>{darkModeEnabled}</div>
+          <!--<div>
           <button
             class="focus:outline-none rounded-full px-8 sm:py-2 py-1 active:bg-gray-800 bg-gray-700 hover:bg-gray-600 sm:text-base text-sm font-semibold leading-9 text-center text-white"
             ><a href="#"
@@ -208,6 +216,7 @@
           >
         </div>
 -->
+        </div>
       </div>
 
       <!--
@@ -215,8 +224,8 @@
         class="w-1/3 absolute inset-y-0 left-16 transform -translate-x-full relative translate-x- transition duration-200 ease-in-out"
       >
 -->
-      <div class="w-1/3 relative">
-        <button class="hamburger-btn p-4 focus:outline-none">
+      <div class="w-1/3 relative flex flex-col items-center">
+        <button class="hamburger-btn py-8 focus:outline-none">
           <svg
             class="w-8 h-8"
             xmlns="http://www.w3.org/2000/svg"
