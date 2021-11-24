@@ -1,76 +1,4 @@
 <style>
-  /*  .background-animate {
-    background-size: 400%;
-
-    -webkit-animation: AnimationName 120s ease infinite;
-    -moz-animation: AnimationName 120s ease infinite;
-    animation: AnimationName 120s ease infinite;
-  }
-
-  @keyframes AnimationName {
-    0%,
-    100% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-  } */
-  body {
-    background-color: black;
-  }
-
-  :global(.scrollbox) {
-    position: relative;
-    z-index: 1;
-    overflow: auto;
-    width: 200px;
-    max-height: 200px;
-    margin: 50px auto;
-    background: #fff no-repeat;
-    background-image: -webkit-radial-gradient(
-        50% 0,
-        farthest-side,
-        rgba(0, 0, 0, 0.2),
-        rgba(0, 0, 0, 0)
-      ),
-      -webkit-radial-gradient(50% 100%, farthest-side, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
-    background-image: -moz-radial-gradient(
-        50% 0,
-        farthest-side,
-        rgba(0, 0, 0, 0.2),
-        rgba(0, 0, 0, 0)
-      ),
-      -moz-radial-gradient(50% 100%, farthest-side, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
-    background-image: radial-gradient(
-        farthest-side at 50% 0,
-        rgba(0, 0, 0, 0.2),
-        rgba(0, 0, 0, 0)
-      ),
-      radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
-    background-position: 0 0, 0 100%;
-    background-size: 100% 14px;
-  }
-
-  .scrollbox:before,
-  .scrollbox:after {
-    content: '';
-    position: relative;
-    z-index: -1;
-    display: block;
-    height: 30px;
-    margin: 0 0 -30px;
-    background: -webkit-linear-gradient(top, #fff, #fff 30%, rgba(255, 255, 255, 0));
-    background: -moz-linear-gradient(top, #fff, #fff 30%, rgba(255, 255, 255, 0));
-    background: linear-gradient(to bottom, #fff, #fff 30%, rgba(255, 255, 255, 0));
-  }
-
-  .scrollbox:after {
-    margin: -30px 0 0;
-    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0), #fff 70%, #fff);
-    background: -moz-linear-gradient(top, rgba(255, 255, 255, 0), #fff 70%, #fff);
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff 70%, #fff);
-  }
 </style>
 
 <script>
@@ -79,7 +7,6 @@
   import { SvelteToast, toast } from '@zerodevx/svelte-toast';
   import WordOfTheDay from './WordOfTheDay.svelte';
   import WordListCard from './WordListCard.svelte';
-  import LoadingCard from './LoadingCard.svelte';
 
   let loaded;
   let saveBtnStatus;
@@ -110,12 +37,6 @@
     return false;
   }
 
-  async function retrieveWordList() {
-    let wordlist = await readLocalStorage('wordlist');
-    wordlist = wordlist || {};
-    return Object.keys(wordlist);
-  }
-
   async function retrieveWords() {
     const wordlist = await readLocalStorage('wordlist');
     if (wordlist) {
@@ -125,6 +46,12 @@
     }
     return wordlist || {};
   }
+
+  async function retrieveWordList() {
+    const wordlist = await retrieveWords();
+    return Object.keys(wordlist);
+  }
+
   // https://stackoverflow.com/a/30599930
   function highlightWord(word, sentence) {
     return sentence.replace(new RegExp(`(\\b)(${word})(\\b)`, 'ig'), '$1<i>$2</i>$3');
@@ -195,8 +122,6 @@
   async function deleteWord(event) {
     try {
       console.log(event.detail);
-      // wordArr = wordArr.filter(el => el !== event.detail.text);
-      // delete wordArr[event.detail.text];
       let wordlist = await readLocalStorage('wordlist');
       wordlist = wordlist || {};
       delete wordlist[event.detail.text];
@@ -209,24 +134,6 @@
       console.error(err.message);
     }
   }
-
-  /* async function getRandomWord() { */
-  /*  const res = await fetch( */
-  /*    `https://api.wordnik.com/v4/words.json/randomWord?api_key=${API_KEY}` */
-  /*  ); */
-  /*  const data = await res.json(); */
-  /*  if (res.ok) { */
-  /*    return { */
-  /*      word: data["word"], */
-  /*      partOfSpeech: data["definitions"][0]["partOfSpeech"], */
-  /*      definition_arr: data.definitions.map(({ text }) => text), */
-  /*      usage_arr: data.examples.map(({ text }) => text), */
-  /*      note: data["note"], */
-  /*    }; */
-  /*  } else { */
-  /*    throw new Error(res.text()); */
-  /*  } */
-  /* } */
 
   onMount(async () => {
     try {
@@ -247,20 +154,12 @@
 </script>
 
 <main class="h-screen">
-  <!--<div-->
-  <!--  class="bg-opacity-25 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 w-full h-full justify-center flex py-16 background-animate"-->
-  <!-->-->
   <div
     class="bg-gradient-to-r from-blue-700 via-blue-800 to-gray-900 w-full h-full justify-center flex py-16 background-animate"
   >
     {#if loaded}
-      <!--<div-->
-      <!--class="bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 w-full h-full justify-center flex py-16"-->
-      <!-->-->
       <div class=" grid grid-cols-1 gap-12 xl:grid-cols-2 max-h-full" in:fly={{}}>
-        {#await primaryPromise}
-          <!--<LoadingCard />-->
-        {:then wotdArgs}
+        {#await primaryPromise then wotdArgs}
           <WordOfTheDay
             {...wotdObj}
             cardTitle="Word of the Day"
@@ -275,9 +174,6 @@
       <div
         class="bg-gradient-to-r from-blue-700 via-blue-800 to-gray-900 w-full h-screen justify-center flex py-12 px-4 gap-5 "
       >
-        <!--<div-->
-        <!--  class="bg-opacity-25 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 w-full h-full justify-center flex py-16 background-animate"-->
-        <!-->-->
         <div class="flex items-center justify-center w-full h-full">
           <div class="flex justify-center items-center space-x-1 text-md text-white">
             <svg
