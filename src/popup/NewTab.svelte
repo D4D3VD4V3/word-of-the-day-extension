@@ -9,13 +9,12 @@
   import WordOfTheDay from './WordOfTheDay.svelte';
   import WordListCard from './WordListCard.svelte';
 
-  let darkModeEnabled;
-
-  let loaded;
   let saveBtnStatus;
+  let loaded;
+  let darkModeEnabled;
   let wordArr;
-
   let wotdObj;
+
   $: saveBtnStatus = false;
   $: loaded = false;
   $: darkModeEnabled = false;
@@ -166,7 +165,7 @@
   const primaryPromise = setValues();
 </script>
 
-<main class="bg-gradient-to-r from-blue-700 via-blue-800 to-gray-900 h-screen">
+<main class="bg-gradient-to-r from-cyan-400 to-blue-600 h-screen">
   <div class="flex ">
     <!-- settings hamburger-->
     <div
@@ -258,9 +257,7 @@
         </div>
         <SvelteToast />
       {:else}
-        <div
-          class="bg-gradient-to-r from-blue-700 via-blue-800 to-gray-900 w-full h-screen justify-center flex py-12 px-4 gap-5 "
-        >
+        <div>
           <div class="flex items-center justify-center w-full h-full">
             <div class="flex justify-center items-center space-x-1 text-md text-white">
               <svg
