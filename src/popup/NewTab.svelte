@@ -17,7 +17,7 @@
 
   $: saveBtnStatus = false;
   $: loaded = false;
-  $: darkModeEnabled = false;
+  $: darkModeEnabled = true;
   $: wordArr = [];
 
   function readLocalStorage(key) {
@@ -152,7 +152,7 @@
     }
     console.timeEnd('wordsretrieve');
 
-    darkModeEnabled = (await readLocalStorage('darkmode')) || false;
+    darkModeEnabled = (await readLocalStorage('darkmode')) || true;
     nightwind.enable(darkModeEnabled);
     const hamburgerBtn = document.querySelector('.hamburger-btn');
     const sidebar = document.querySelector('.sidebar');
@@ -177,7 +177,10 @@
   console.timeEnd('primaryPromise');
 </script>
 
-<main class="bg-gray-400 h-screen">
+<main
+  class="bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 h-screen"
+  transition:fade={{ duration: 100 }}
+>
   <div class="flex ">
     <!-- settings hamburger-->
     <div
@@ -253,7 +256,7 @@
         </button>
       </div>
     </div>
-    <div class="w-screen h-screen justify-center flex py-16 background-animate">
+    <div class="w-screen h-screen justify-center flex py-16">
       {#if loaded}
         <div class=" grid grid-cols-1 gap-12 xl:grid-cols-2 max-h-full" in:fly={{}}>
           {#await primaryPromise then wotdArgs}
