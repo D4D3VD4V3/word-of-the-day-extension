@@ -1,7 +1,7 @@
 <style>
 </style>
 
-<script>
+<script defer>
   import { onMount } from 'svelte';
   import { fade, fly } from 'svelte/transition';
   import { SvelteToast, toast } from '@zerodevx/svelte-toast';
@@ -41,8 +41,10 @@
   }
 
   async function retrieveWords() {
+    console.time('actualwordsretrieve');
     const wordlist = await readLocalStorage('wordlist');
     if (wordlist) {
+      console.timeEnd('actualwordsretrieve');
       for (const [key, value] of Object.entries(wordlist)) {
         wordlist[key] = JSON.parse(value);
       }
@@ -61,6 +63,7 @@
   }
 
   async function getWOTD() {
+    console.log('fetching new data');
     const res = await fetch('https://oq3p80.deta.dev/');
     const data = await res.json();
     if (res.ok) {
@@ -139,12 +142,15 @@
   }
 
   onMount(async () => {
+    console.time('onmount');
+    console.time('wordsretrieve');
     try {
       wordArr = await retrieveWords();
     } catch (err) {
       toast.push('Error');
       console.error(err.message);
     }
+    console.timeEnd('wordsretrieve');
 
     darkModeEnabled = (await readLocalStorage('darkmode')) || false;
     nightwind.enable(darkModeEnabled);
@@ -154,22 +160,28 @@
     hamburgerBtn.addEventListener('click', () => {
       sidebar.classList.toggle('-translate-x-2/3');
     });
+
+    console.timeEnd('onmount');
   });
 
   async function setValues() {
+    console.time('setValues');
     wotdObj = await getLocalWOTD();
     saveBtnStatus = await checkWordInWordList(wotdObj.word);
     loaded = true;
+    console.timeEnd('setValues');
   }
 
+  console.time('primaryPromise');
   const primaryPromise = setValues();
+  console.timeEnd('primaryPromise');
 </script>
 
-<main class="bg-gradient-to-r from-cyan-400 to-blue-600 h-screen">
+<main class="bg-gray-400 h-screen">
   <div class="flex ">
     <!-- settings hamburger-->
     <div
-      class="sidebar flex absolute inset-y-0 flex-row w-96 transform -translate-x-2/3  transition duration-200 ease-in-out"
+      class="z-40 backdrop-filter backdrop-blur-3xl hover:backdrop-saturate-150 hover:bg-black hover:bg-opacity-40 sidebar flex absolute inset-y-0 flex-row w-96 transform -translate-x-2/3  transition duration-200 ease-in-out"
     >
       <div class="flex flex-col flex-1">
         <div class="pt-8 flex items-center justify-center">
@@ -189,7 +201,6 @@
               class="toggle"
             />
           </div>
-          <div>{darkModeEnabled}</div>
           <!--<div>
           <button
             class="focus:outline-none rounded-full px-8 sm:py-2 py-1 active:bg-gray-800 bg-gray-700 hover:bg-gray-600 sm:text-base text-sm font-semibold leading-9 text-center text-white"

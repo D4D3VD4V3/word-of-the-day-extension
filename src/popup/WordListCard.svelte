@@ -11,7 +11,7 @@
   }
 </style>
 
-<script>
+<script defer>
   import { createEventDispatcher } from 'svelte';
   import { toast } from '@zerodevx/svelte-toast';
   import { fade, fly } from 'svelte/transition';
@@ -26,8 +26,6 @@
   export let wordArr;
   $: filteredwordArr;
   filteredwordArr = wordArr;
-  console.log(wordArr);
-  console.log(filteredwordArr);
 
   const dispatch = createEventDispatcher();
 

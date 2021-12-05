@@ -11,4 +11,9 @@ module.exports = {
     require('daisyui'),
     require('nightwind'),
   ],
+  daisyui: {
+    styled: true,
+    themes: false,
+    rtl: false,
+  },
 };
