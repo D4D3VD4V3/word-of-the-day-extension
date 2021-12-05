@@ -3,6 +3,13 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},
+    nightwind: {
+      colors: {
+          red: {
+              700: "red.700"
+          }
+      }
+    }
   },
   variants: {
     extend: {},
