@@ -1,3 +1,5 @@
+<svelte:options immutable={true} />
+
 <script>
   export let word;
   export let partOfSpeech;
