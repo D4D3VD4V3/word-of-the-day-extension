@@ -41,10 +41,8 @@
   }
 
   async function retrieveWords() {
-    console.time('actualwordsretrieve');
     const wordlist = await readLocalStorage('wordlist');
     if (wordlist) {
-      console.timeEnd('actualwordsretrieve');
       for (const [key, value] of Object.entries(wordlist)) {
         wordlist[key] = JSON.parse(value);
       }
@@ -63,7 +61,6 @@
   }
 
   async function getWOTD() {
-    console.log('fetching new data');
     const res = await fetch('https://oq3p80.deta.dev/');
     const data = await res.json();
     if (res.ok) {
@@ -127,7 +124,6 @@
 
   async function deleteWord(event) {
     try {
-      console.log(event.detail);
       let wordlist = await readLocalStorage('wordlist');
       wordlist = wordlist || {};
       delete wordlist[event.detail.text];
@@ -142,17 +138,17 @@
   }
 
   onMount(async () => {
-    console.time('onmount');
-    console.time('wordsretrieve');
     try {
       wordArr = await retrieveWords();
     } catch (err) {
       toast.push('Error');
       console.error(err.message);
     }
-    console.timeEnd('wordsretrieve');
 
-    darkModeEnabled = (await readLocalStorage('darkmode')) || true;
+    darkModeEnabled = await readLocalStorage('darkmode');
+    if (darkModeEnabled === null) {
+      darkModeEnabled = true;
+    }
     nightwind.enable(darkModeEnabled);
     const hamburgerBtn = document.querySelector('.hamburger-btn');
     const sidebar = document.querySelector('.sidebar');
@@ -160,21 +156,15 @@
     hamburgerBtn.addEventListener('click', () => {
       sidebar.classList.toggle('-translate-x-2/3');
     });
-
-    console.timeEnd('onmount');
   });
 
   async function setValues() {
-    console.time('setValues');
     wotdObj = await getLocalWOTD();
     saveBtnStatus = await checkWordInWordList(wotdObj.word);
     loaded = true;
-    console.timeEnd('setValues');
   }
 
-  console.time('primaryPromise');
   const primaryPromise = setValues();
-  console.timeEnd('primaryPromise');
 </script>
 
 <main

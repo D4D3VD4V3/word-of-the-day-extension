@@ -100,7 +100,7 @@
     <div class="flex  items-center justify-between px-4 py-4 sm:px-16">
       {#if saveBtnStatus}
         <button
-          class="focus:outline-none rounded-full px-8 sm:py-2 py-1 bg-green-700 sm:text-base text-sm font-semibold leading-9 text-center text-white "
+          class="save-button focus:outline-none rounded-full px-8 sm:py-2 py-1 bg-green-700 sm:text-base text-sm font-semibold leading-9 text-center text-white "
           style="cursor:not-allowed"
           disabled
           >Saved <span class="inline-block">
@@ -122,7 +122,7 @@
       {:else}
         <button
           on:click={saveButtonClickEvent}
-          class="focus:outline-none rounded-full px-8 sm:py-2 py-1 bg-gray-700 hover:bg-gray-600 active:bg-gray-800 sm:text-base text-sm font-semibold leading-9 text-center text-white"
+          class="save-button focus:outline-none rounded-full px-8 sm:py-2 py-1 bg-gray-700 hover:bg-gray-600 active:bg-gray-800 sm:text-base text-sm font-semibold leading-9 text-center text-white"
           >Save <span class="inline-block"
             ><svg
               xmlns="http://www.w3.org/2000/svg"
