@@ -15,6 +15,7 @@
     "@testing-library/svelte": "^3.0.3",
     "@zerodevx/svelte-toast": "^0.3.0",
     "babel-jest": "^26.6.3",
+    "cypress": "^9.1.1",
     "daisyui": "^1.16.2",
     "eslint": "^8.2.0",
     "eslint-config-airbnb-base": "^15.0.0",
