@@ -1,4 +1,9 @@
-[WIP] A browser extension written using the reactive Svelte framework with TailwindCSS. Some API endpoints are cached using Deta services and there's a cronjob to help with that.
+[WIP] 
+
+A reactive and responsive word of the day new tab replacement that serves up a new word every day with usage examples, as well as pronunciation guides powered by YouGlish. 
+- Save words that you like to view later
+- Search through saved words
+- Dark mode support
 
 ![Screenshot](screenshot.png)
 
