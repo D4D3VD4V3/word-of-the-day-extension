@@ -1,6 +1,6 @@
 {
     "manifest_version": 2,
-    "version": "1.0",
+    "version": "1.1",
     "name": "Word of the Day",
     "background": { "scripts": ["background/index.js"] },
     "chrome_url_overrides" : {
